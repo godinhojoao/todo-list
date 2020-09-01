@@ -1,0 +1,147 @@
+:root {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+div#container {
+    height: 100%;
+    max-width: 45%;
+
+    margin: 0 auto;
+}
+
+div.content {
+    height: 100%;
+}
+
+header {
+    margin: 3.2rem 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 3.6rem;
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+}
+
+div.select-modes {
+    width: 100%;
+    height: auto;
+
+    border-bottom: 1px solid #BDBDBD;
+
+    margin-bottom: 1.8rem;
+}
+
+ul {
+    list-style-type: none;
+
+    display: flex;
+    justify-content: space-around;
+
+    margin-bottom: 1.4rem;
+
+    font-size: 1.4rem;
+    color: #333333;
+
+}
+
+ul li {
+    cursor: pointer;
+}
+
+span.target {
+    height: 3.4px;
+
+    border-radius: 5px 5px 0px 0px;
+
+    background-color: blue;
+
+    position: absolute;
+    transform: translateX(-6rem);
+}
+
+span.target {
+    transition: all .2s ease-in-out;
+}
+
+div.add-task {
+    width: 100%;
+    height: 4rem;
+
+    display: flex;
+
+    margin-bottom: 2.3rem;
+}
+
+div.add-task input {
+    flex-grow: 3;
+    
+    margin-right: 2rem;
+    padding-left: 1.5rem;
+
+    border: 1px solid #BDBDBD;
+    border-radius: .8rem;
+}
+
+div.add-task button {
+    flex-grow: 1;
+
+    border: 1px solid transparent;
+    border-radius: .8rem;
+    
+    background: #2F80ED;
+    color: white;
+    box-shadow: 2px 3px 6px rgba(127, 177, 243, 0.5);
+}
+
+div.add-task button:hover {
+    background: #0671fc;
+    box-shadow: 2px 3px 6px rgb(51, 131, 235);
+}
+
+div.add-task button:active {
+    box-shadow: 0px 0px;
+}
+
+div.tasks-block {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-items: space-around;
+}
+
+div.task {
+    height: auto;
+    width: 100%;
+    
+    display: flex;
+}
+
+div.task input {
+    height: 2.4rem;
+    width: 2.4rem;
+
+    margin-right: .5rem;
+    margin-bottom: 2.5rem;
+}
+
+div.task label {
+    font-size: 1.8rem;
+}
