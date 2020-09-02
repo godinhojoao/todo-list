@@ -124,7 +124,37 @@ div.tasks-block {
     
     display: flex;
     flex-direction: column;
-    justify-items: space-around;
+}
+
+div.tasks-block div.remove-all{
+    width: 124px;
+    height: 40px;
+    
+    align-self: flex-end;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    
+    background: #EB5757;
+    color: white;
+
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+div.tasks-block div.remove-all:hover {
+    background: #c72d2d;
+    box-shadow: 3px 3px 5px black;
+}
+
+div.tasks-block div.remove-all:active {
+    background: #c72d2d;
+    box-shadow: 0px 0px 0px black;
+}
+
+div.tasks-block.completed div.remove-all {
+    display: flex;
 }
 
 div.task {
@@ -135,12 +165,16 @@ div.task {
     justify-content: space-between;
 }
 
-div.task img {
-    height: 2.5rem;
+div.task span.material-icons.only-one {
+    height: 30px;
+    font-size: 25px;
+    color: gray;
+    display: none;
 }
 
-div.task img:hover {
+div.task span.material-icons.only-one:hover {
     cursor: pointer;
+    color: black;
 }
 
 div.task div.task-content {
