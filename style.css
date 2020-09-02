@@ -132,6 +132,19 @@ div.task {
     width: 100%;
     
     display: flex;
+    justify-content: space-between;
+}
+
+div.task img {
+    height: 2.5rem;
+}
+
+div.task img:hover {
+    cursor: pointer;
+}
+
+div.task div.task-content {
+    display: flex;
 }
 
 div.task input {
@@ -140,6 +153,10 @@ div.task input {
 
     margin-right: .5rem;
     margin-bottom: 2.5rem;
+}
+
+div.task input:checked + label {
+    text-decoration-line: line-through;
 }
 
 div.task label {

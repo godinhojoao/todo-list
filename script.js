@@ -2,8 +2,11 @@
     const target = document.querySelector('span.target');
     const modes = document.querySelectorAll('div.select-modes ul li');
     const buttonAddTask = document.querySelector('div.add-task button');
-    let tasks;
     let count = 1;
+    let tasks;
+    let inputsCheckbox = [];
+    let checkeds = [];
+    let notCheckeds = [];
 
     for (let i = 0; i < modes.length; i++) {
         modes[i].addEventListener('click', focusFunc);
@@ -41,37 +44,79 @@
 
         if (!!input.value) {
             const tasksBlock = document.querySelector('div.tasks-block');
-            tasksBlock.innerHTML +=
-                `<div class="task">
-                    <input type="checkbox" name="task${count}" id="task${count}">
-                    <label for="task${count}"> ${input.value} </label><br>
-                </div>`;
+
+            let divTask = document.createElement('div');
+            let inputCheckbox = document.createElement('input')
+            let label = document.createElement('label');
+            let divTaskContent = document.createElement('div');
+
+            divTask.classList.add('task');
+            divTaskContent.classList.add('task-content');
+            inputCheckbox.type = "checkbox";
+            inputCheckbox.id = `task${count}`;
+            label.setAttribute('for', `task${count}`);
+            label.innerText = `${input.value}`;
+
+            divTaskContent.appendChild(inputCheckbox);
+            divTaskContent.appendChild(label);
+            divTask.appendChild(divTaskContent);
+            tasksBlock.appendChild(divTask);
 
             input.value = '';
             count++;
 
-            tasks = document.querySelectorAll('div.task');
+            inputsCheckbox = tasksBlock.querySelectorAll('input[type=checkbox]');
         } else {
             alert('Adicione uma tarefa'); /* preciso fazer um alerta bonito depois */
         }
     };
 
     function findTasks(e) {
+        updateInputs();
+
         if (e.target.innerText.toLowerCase() == 'active') {
-            onlyActived();
+            onlyActive();
         }
         else if (e.target.innerText.toLowerCase() == 'completed') {
             onlyCompleted();
         } else {
-            // all
+            inputsCheckbox.forEach((input) => {
+                input.parentElement.style.display = 'flex';
+            });
         };
     };
 
-    function onlyActived() {
-        
+    function updateInputs() {
+        checkeds = [];
+        notCheckeds = [];
+
+        inputsCheckbox.forEach((input) => {
+            if (input.checked) {
+                checkeds.push(input);
+            } else {
+                notCheckeds.push(input);
+            };
+        });
+    };
+
+    function onlyActive() {
+        checkeds.forEach((input) => {
+            input.parentElement.style.display = 'none';
+        });
+
+        notCheckeds.forEach((input) => {
+            input.parentElement.style.display = 'flex';
+        });
     };
 
     function onlyCompleted() {
+        checkeds.forEach((input) => {
+            input.parentElement.style.display = 'flex';
+        });
+
+        notCheckeds.forEach((input) => {
+            input.parentElement.style.display = 'none';
+        });
 
     };
 })();
