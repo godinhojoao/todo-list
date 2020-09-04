@@ -1,8 +1,8 @@
 (function () {
     const target = document.querySelector('span.target');
-    const modes = document.querySelectorAll('div.select-modes ul li');
+    let modes = document.querySelectorAll('div.select-modes ul li');
     const buttonAddTask = document.querySelector('div.add-task button');
-    let input = document.querySelector('div.add-task input');
+    const input = document.querySelector('div.add-task input');
     const divTasksBlock = document.querySelector('div.tasks-block');
     let count = 1;
     let checkeds = [];
@@ -33,10 +33,10 @@
         const top = this.getBoundingClientRect().top;
         const left = this.getBoundingClientRect().left;
 
-        target.style.width = `${width}px`;
+        target.style.width = `${width + 20}px`;
         target.style.top = `${top + targetHeight + 11}px`;
-        target.style.left = `${left}px`;
-        target.style.transform = 'none'; /* para ir ate a posicao do elemento */
+        target.style.left = `${left+10}px`;
+        target.style.transform = 'none'; /* para ir ate a posicao do elemento fazendo efeito slide*/
 
         updateTaskView(e.target);
     };
@@ -60,6 +60,7 @@
             divTaskContent.classList.add('task-content');
             spanIcon.classList.add('material-icons');
             spanIcon.classList.add('only-one');
+            spanIcon.classList.add('notranslate');
             inputCheckbox.type = "checkbox";
             inputCheckbox.id = `task${count}`;
             label.setAttribute('for', `task${count}`);
@@ -144,10 +145,10 @@
     function updateTaskView(target) {
         updateInputs();
 
-        if (target == modes[1]) {
+        if (target.innerText == modes[1].innerText) {
             showActive();
         }
-        else if (target == modes[2]) {
+        else if (target.innerText == modes[2].innerText) {
             showCompleted();
         } else {
             all();
@@ -159,6 +160,7 @@
     function updateInputs() {
         checkeds = [];
         notCheckeds = [];
+        modes = document.querySelectorAll('div.select-modes ul li');
 
         inputsCheckbox.forEach((input) => {
             if (input.checked) {
@@ -202,7 +204,7 @@
             input.parentElement.parentElement.style.display = 'none';
         });
 
-        let iconsRemoveOnlyOne = divTasksBlock.querySelectorAll('.only-one');
+        let iconsRemoveOnlyOne = divTasksBlock.querySelectorAll('span.only-one');
 
         iconsRemoveOnlyOne.forEach((icon) => {
             icon.addEventListener('click', removeOnlyOneTask);
@@ -219,7 +221,7 @@
     };
 
     divTasksBlock.innerHTML = `
-    <div class="remove-all"> 
+    <div class="remove-all notranslate"> 
         <span class="material-icons">
             delete_outline
         </span>
@@ -230,7 +232,7 @@
     let divRemoveAll = divTasksBlock.querySelector('div.remove-all');
 
     divRemoveAll.addEventListener('click', function () {
-        let iconsRemoveOnlyOne = document.querySelectorAll('span.only-one');
+        let iconsRemoveOnlyOne = document.querySelectorAll('.only-one');
 
         iconsRemoveOnlyOne.forEach((icon) => {
             if (icon.parentElement.querySelector('input[type=checkbox]').checked) {
