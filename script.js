@@ -35,7 +35,7 @@
 
         target.style.width = `${width + 20}px`;
         target.style.top = `${top + targetHeight + 11}px`;
-        target.style.left = `${left}px`;
+        target.style.left = `${left-10}px`;
         target.style.transform = 'none'; /* para ir ate a posicao do elemento fazendo efeito slide*/
 
         updateTaskView(e.target);
