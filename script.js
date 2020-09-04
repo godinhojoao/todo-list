@@ -2,38 +2,17 @@
     const target = document.querySelector('span.target');
     const modes = document.querySelectorAll('div.select-modes ul li');
     const buttonAddTask = document.querySelector('div.add-task button');
+    let input = document.querySelector('div.add-task input');
     const divTasksBlock = document.querySelector('div.tasks-block');
     let count = 1;
     let checkeds = [];
     let notCheckeds = [];
     let inputsCheckbox = [];
 
-    divTasksBlock.innerHTML = `
-    <div class="remove-all"> 
-        <span class="material-icons">
-            delete_outline
-        </span>
-        delete all    
-    </div>
-    `;
-
-    let divRemoveAll = divTasksBlock.querySelector('div.remove-all');
-
-    divRemoveAll.addEventListener('click', removeAllTasks);
-
-    function removeAllTasks() {
-        let iconsRemoveOnlyOne = document.querySelectorAll('span.only-one');
-
-        iconsRemoveOnlyOne.forEach((icon) => {
-            icon.click();
-        });
-    };
-
     for (let i = 0; i < modes.length; i++) {
         modes[i].addEventListener('click', focusFunc);
     };
 
-    buttonAddTask.addEventListener('click', addTask);
 
     function focusFunc(e) {
         for (let i = 0; i < modes.length; i++) {
@@ -62,8 +41,13 @@
         updateTaskView(e.target);
     };
 
+    buttonAddTask.addEventListener('click', addTask);
+
+    input.addEventListener('keypress', function (e) {
+        e.keyCode == 13 ? buttonAddTask.click() : 0;
+    });
+
     function addTask() {
-        let input = document.querySelector('div.add-task input');
 
         if (!!input.value) {
             let divTask = document.createElement('div');
@@ -99,9 +83,44 @@
             let actualModeElement = whatIsActualModeIfExists();
             actualModeElement ? updateTaskView(actualModeElement) : 0;
         } else {
-            alert('Adicione uma tarefa'); /* preciso fazer um alerta bonito*/
+            let divsAlert = document.querySelectorAll('div.alert');
+
+            if (!!divsAlert && divsAlert.length == 0) {
+                alertAddInvalid();
+            };
         };
-    }
+    };
+
+    function alertAddInvalid() {
+        let h2 = document.createElement('h2');
+        let buttonOk = document.createElement('button');
+        let container = document.querySelector('div#container');
+        let divAlert = document.createElement('div');
+
+        if (target) {
+            target.style.display = 'none';
+        };
+
+        divAlert.classList.add('alert');
+        h2.innerText = 'Adicione pelo menos uma tarefa!';
+        buttonOk.innerText = 'Ok';
+
+        divAlert.appendChild(h2);
+        divAlert.appendChild(buttonOk);
+
+        container.style.opacity = '0.4';
+
+        document.querySelector('body').appendChild(divAlert);
+
+        buttonOk.addEventListener('click', function () {
+            let divAlert = document.querySelector('div.alert');
+
+            divAlert.remove();
+
+            target.style.display = 'block';
+            container.style.opacity = '1';
+        });
+    };
 
     function whatIsActualModeIfExists() {
         let actualModeElement;
@@ -125,10 +144,10 @@
     function updateTaskView(target) {
         updateInputs();
 
-        if (target.innerText == 'Active') {
+        if (target == modes[1]) {
             showActive();
         }
-        else if (target.innerText == 'Completed') {
+        else if (target == modes[2]) {
             showCompleted();
         } else {
             all();
@@ -198,6 +217,27 @@
 
         updateTaskView(whatIsActualModeIfExists());
     };
+
+    divTasksBlock.innerHTML = `
+    <div class="remove-all"> 
+        <span class="material-icons">
+            delete_outline
+        </span>
+        delete all    
+    </div>
+    `;
+
+    let divRemoveAll = divTasksBlock.querySelector('div.remove-all');
+
+    divRemoveAll.addEventListener('click', function () {
+        let iconsRemoveOnlyOne = document.querySelectorAll('span.only-one');
+
+        iconsRemoveOnlyOne.forEach((icon) => {
+            if (icon.parentElement.querySelector('input[type=checkbox]').checked) {
+                icon.click();
+            };
+        });
+    });
 
     function all() {
         divTasksBlock.classList.remove('completed')
