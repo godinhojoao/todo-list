@@ -103,8 +103,8 @@
         };
 
         divAlert.classList.add('alert');
-        h2.innerText = 'Adicione pelo menos uma tarefa!';
-        buttonOk.innerText = 'Ok';
+        h2.innerText = 'Add at least one task!';
+        buttonOk.innerText = 'OK';
 
         divAlert.appendChild(h2);
         divAlert.appendChild(buttonOk);
